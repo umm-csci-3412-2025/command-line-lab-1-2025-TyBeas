@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "hNthPrime"
+#include "nth_prime.h"
+#include <stdbool.h>
 
 int prime_count;
 int* primes;

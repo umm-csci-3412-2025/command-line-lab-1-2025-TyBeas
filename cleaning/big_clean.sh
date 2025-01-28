@@ -1,16 +1,16 @@
 #!/usr/bin/env bats
 
 #Set the variable t_file to the name of the file that will be tested and passed to script
-t_file=$1
+tar_file=$1
 
 #Make a temporary directory to store the files
 TempDir=$(mktemp --directory)
 
 #Uncompress the file to the temporary directory
-tar -xzf "$t_file" -directory "$TempDir"
+tar zxf "$t_file" --directory "$TempDir"
 
 #Go through all the files in the temporary directory and check if they contain the string "DELETE ME!"
-grep -rl "DELETE ME!" "$TempDir" | xargs rm
+grep -lr "DELETE ME!" "$TempDir" | xargs rm
 
 #cd to the temporary directory or exit
 cd "$TempDir" || exit

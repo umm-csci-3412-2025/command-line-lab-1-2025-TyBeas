@@ -1,11 +1,11 @@
 /*
- * Header file for cNthPrime
+ * Header file for nth_prime.c
  */
 
 #ifndef NTH_PRIME_H_GUARD
 #define NTH_PRIME_H_GUARD
 
-typedef int bool;
+typedef int bool_t;
 
 #define FALSE 0
 #define TRUE (-1)
