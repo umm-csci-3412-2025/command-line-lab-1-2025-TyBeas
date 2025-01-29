@@ -1,22 +1,22 @@
-#!/usr/bin/env bats
+#!/usr/bin/env bash
 
-#Set the variable t_file to the name of the file that will be tested and passed to script
+#Set the variable tar_file to the first argument that is passed to the script
 tar_file=$1
 
-#Make a temporary directory to store the files
-TempDir=$(mktemp --directory)
+#Make a temporary directory and call it SCRATCH
+SCRATCH=$(mktemp --directory)
 
-#Uncompress the file to the temporary directory
-tar zxf "$t_file" --directory "$TempDir"
+#Uncompress the contents of the tar file passed in as an argument into the directory called SCRATCH
+tar zxf "$tar_file" --directory "$SCRATCH"
 
-#Go through all the files in the temporary directory and check if they contain the string "DELETE ME!"
-grep -lr "DELETE ME!" "$TempDir" | xargs rm
+#Go through all the files in the SCRATCH directory and get the names of the files that contain the phrase "DELETE ME!"  and then remove those files
+grep -lr "DELETE ME!" "$SCRATCH" | xargs rm
 
-#cd to the temporary directory or exit
-cd "$TempDir" || exit
+#cd into the SCRATCH directory or exit if the cd fails
+cd "$SCRATCH" || exit
 
-#Gets the name of the directory that was passed to the script and removes the .tgz extension
-DirName=$(basename "$t_file" .tgz)
+#Gets the name of the tar file that was passed in as an argument and removes the file extension from it
+file_name=$(basename -s  .tgz "$tar_file")
 
 #Compress the file that has the name stored in file_name and save to a file called cleaned_*value stored in file_name*  and put that file in our old working directory
-tar -czf "cleaned_$t_file" "$DirName"
+tar zcf "$OLDPWD"/cleaned_"$tar_file" "$file_name"

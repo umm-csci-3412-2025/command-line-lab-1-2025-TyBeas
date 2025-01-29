@@ -5,7 +5,7 @@
 #ifndef NTH_PRIME_H_GUARD
 #define NTH_PRIME_H_GUARD
 
-typedef int bool_t;
+typedef int bool;
 
 #define FALSE 0
 #define TRUE (-1)
